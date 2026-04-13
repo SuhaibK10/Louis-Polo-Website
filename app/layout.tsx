@@ -32,6 +32,7 @@ const inter = Inter({
 // ─── Metadata ─────────────────────────────────────────────────────────────────
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://louispolo.in'),
   title: {
     default:  SEO.title,
     // Product pages override this: "AeroSmart 3-in-1 | Louis Polo"
