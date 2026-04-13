@@ -38,8 +38,8 @@ export function BestSellersCarousel({ products }: BestSellersCarouselProps) {
   const [current, setCurrent]         = useState(0)
   const [paused, setPaused]           = useState(false)
   const [direction, setDirection]     = useState<'left' | 'right'>('left')
-  const autoSlideTimer                = useRef<ReturnType<typeof setInterval>>()
-  const resumeTimer                   = useRef<ReturnType<typeof setTimeout>>()
+  const autoSlideTimer = useRef<ReturnType<typeof setInterval> | null>(null)
+  const resumeTimer    = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   // Touch tracking for swipe gesture
   const touchStart                    = useRef<number>(0)
@@ -66,7 +66,7 @@ export function BestSellersCarousel({ products }: BestSellersCarouselProps) {
     if (paused) return
 
     autoSlideTimer.current = setInterval(next, SLIDE_INTERVAL)
-    return () => clearInterval(autoSlideTimer.current)
+    return () => clearInterval(autoSlideTimer.current ?? undefined)
   }, [paused, next])
 
   // ─── Touch handlers ───────────────────────────────────────────────────────
@@ -75,7 +75,7 @@ export function BestSellersCarousel({ products }: BestSellersCarouselProps) {
     touchStart.current = e.targetTouches[0].clientX
     // Pause auto-slide while user is touching
     setPaused(true)
-    clearTimeout(resumeTimer.current)
+    clearTimeout(resumeTimer.current ?? undefined)
   }
 
   function handleTouchEnd(e: React.TouchEvent) {

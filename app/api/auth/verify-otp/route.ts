@@ -49,7 +49,7 @@ export async function POST(request: Request) {
     return NextResponse.json({
       success: true,
       data: { userId: data.user.id },
-    } as ApiResponse)
+    } )
 
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Verification failed'

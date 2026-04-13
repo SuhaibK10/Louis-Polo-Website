@@ -66,7 +66,7 @@ export async function POST(request: Request) {
         currency:        'INR',
         receipt,
       },
-    } as ApiResponse)
+    } )
 
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Failed to create order'

@@ -1,11 +1,10 @@
 // ─────────────────────────────────────────────────────────────────────────────
 // app/api/auth/send-otp/route.ts
 // POST /api/auth/send-otp
-// Triggers Supabase Phone Auth to send an OTP SMS to the user's phone.
 // ─────────────────────────────────────────────────────────────────────────────
 
 import { NextResponse }     from 'next/server'
-import { createAdminClient } from '@/lib/supabase/server'
+import { createClient }     from '@/lib/supabase/server'
 import { normalizePhone }   from '@/lib/utils'
 import type { ApiResponse } from '@/types'
 
@@ -21,27 +20,16 @@ export async function POST(request: Request) {
       )
     }
 
-    const supabase = createAdminClient()
+    const supabase = await createClient()
 
-    const { error } = await supabase.auth.admin.generateLink({
-      type:  'phone_change',
-      phone,
-    })
+    const { error } = await supabase.auth.signInWithOtp({ phone })
 
-    // Use signInWithOtp instead — admin generateLink doesn't work for phone
-    // This sends the actual SMS via Supabase + Twilio
-    const { error: otpError } = await (
-      await import('@/lib/supabase/server')
-    ).createClient().then((c) =>
-      c.auth.signInWithOtp({ phone })
-    )
+    if (error) throw error
 
-    if (otpError) throw otpError
-
-    return NextResponse.json({
-      success: true,
-      data:    { phone, message: 'OTP sent successfully' },
-    } as ApiResponse)
+   return NextResponse.json({
+  success: true,
+  data:    { phone, message: 'OTP sent successfully' },
+})
 
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Failed to send OTP'
