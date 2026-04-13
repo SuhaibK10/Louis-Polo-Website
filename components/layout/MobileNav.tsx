@@ -8,7 +8,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Home, Grid2X2, Search, ShoppingBag, User } from 'lucide-react'
+import { Home, Grid2X2, ShoppingBag, User } from 'lucide-react'
 import { useCart } from '@/hooks/useCart'
 import { ROUTES } from '@/lib/constants'
 import { cn } from '@/lib/utils'
@@ -16,7 +16,6 @@ import { cn } from '@/lib/utils'
 const NAV = [
   { label: 'Home',    href: ROUTES.home,    Icon: Home },
   { label: 'Shop',    href: ROUTES.shop,    Icon: Grid2X2 },
-  { label: 'Search',  href: ROUTES.shop,    Icon: Search },
   { label: 'Cart',    href: ROUTES.cart,    Icon: ShoppingBag },
   { label: 'Account', href: ROUTES.account, Icon: User },
 ] as const

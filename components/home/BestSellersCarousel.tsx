@@ -30,7 +30,7 @@ interface BestSellersCarouselProps {
 }
 
 // Auto-slide interval in ms
-const SLIDE_INTERVAL = 3500
+const SLIDE_INTERVAL = 2000
 // How long to wait after user touch before resuming auto-slide
 const RESUME_DELAY = 5000
 
