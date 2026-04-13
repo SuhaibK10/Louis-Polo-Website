@@ -158,8 +158,8 @@ export function CartDrawer() {
                 // Cart items
                 <div>
                   {items.map((item, i) => (
-  <CartItem key={item.variantId} item={item} isLast={i === items.length - 1} />
-))}
+                    <CartItem key={item.variantId} item={item} isLast={i === items.length - 1} />
+                  ))}
                 </div>
               )}
             </div>

@@ -60,9 +60,9 @@ export default function CartPage() {
 
         {/* Items */}
         <motion.div variants={fadeUp} className="md:col-span-2 space-y-4 mb-8 md:mb-0">
-          {items.map((item) => (
-            <CartItem key={item.variantId} item={item} />
-          ))}
+         {items.map((item, i) => (
+  <CartItem key={item.variantId} item={item} isLast={i === items.length - 1} />
+))}
         </motion.div>
 
         {/* Summary */}
