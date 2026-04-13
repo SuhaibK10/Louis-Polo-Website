@@ -8,7 +8,7 @@
 
 import type { Metadata } from 'next'
 import { notFound }      from 'next/navigation'
-import { createClient }  from '@/lib/supabase/server'
+import { createClient, createAdminClient }  from '@/lib/supabase/server'
 import { ImageGallery }  from '@/components/product/ImageGallery'
 import { ProductInfo }   from '@/components/product/ProductInfo'
 import type { Product }  from '@/types'
@@ -36,7 +36,7 @@ async function getProduct(slug: string): Promise<Product | null> {
 // ─── Static params — pre-render all product pages ─────────────────────────────
 
 export async function generateStaticParams() {
-  const supabase = await createClient()
+  const supabase = createAdminClient()
 
   const { data } = await supabase
     .from('products')
@@ -45,7 +45,6 @@ export async function generateStaticParams() {
 
   return (data ?? []).map(({ slug }) => ({ slug }))
 }
-
 // ─── Dynamic metadata per product ─────────────────────────────────────────────
 
 export async function generateMetadata(
